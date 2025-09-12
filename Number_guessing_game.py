@@ -1,6 +1,5 @@
 import random
 
-count = 0
 print("Welcome to the Number Guessing Game!")
 print("In This game, you will guess a number within a range you choose.")
 h=input("Do you want to read the instructions (y)?").strip().lower()
@@ -17,19 +16,26 @@ if h=='y':
 else:
     print("Let's get started then!")
     print()
+
 F= int(input('Enter the first number of the range: '))
 S= int(input('Enter the second number of the range: '))
 K = max(F, S)
-L= min(F, S)    
+L= min(F, S)
+
+    
 while True:
     mode = input("Do you want to play in hard mode(y/n) or do you want to quit(q)?").strip().lower()
-
+    count = 0
     if mode == 'y':
         print(f"You have chosen hard mode. You have 3 attempts to guess the number between {L} and {K}.")
         number = random.randint(L, K)
         attempts = 3
         while attempts > 0:
-            guess = int(input(f"You have {attempts} attempts left. Make a guess: "))
+            try:
+                guess = int(input(f"You have {attempts} attempts left. Make a guess: "))
+            except ValueError:
+                print("Please enter a valid integer.")
+                continue
             count += 1
             if guess < number:
                 print("Too low.")
@@ -46,7 +52,11 @@ while True:
         attempts = 0
         print(f"You have chosen easy mode. You have to guess the number between {L} and {K} with no limit of attempts.")
         while True:
-            guess = int(input(f"Make a guess: "))
+            try:
+                guess = int(input(f"Make a guess: "))
+            except ValueError:
+                print("Please enter a valid integer.")
+                continue
             count += 1
             attempts += 1
             if guess < number:
